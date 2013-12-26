@@ -1,6 +1,6 @@
 ;(function($) {
 
-    $.gallery = function(el, options) {
+    $.museum = function(el, options) {
 
         var defaults = {
             namespace: 'murat-',
