@@ -28,7 +28,7 @@
                 $(this).wrap($('<a>').attr('href', src).bind('click', function(ev){
                     if(!ev.metaKey) {
                         ev.preventDefault();
-                        plugin.show_gallery(i);
+                        plugin.show_image(i);
                     }
                 }));
             });
@@ -57,43 +57,45 @@
                 if(window.location.hash.substring(0, plugin_hash.length) === plugin_hash) {
                     var image_id = window.location.hash.split('-')[2];
                     if(parseInt(image_id) != parseInt(plugin.current_image)) {
-                        plugin.show_gallery(image_id);
+                        plugin.show_image(image_id);
                     }
                 }
             }
         }
 
-        plugin.show_gallery = function(i) {
+        plugin.show_image = function(i) {
             if(plugin.loaded === false) {
-                plugin.container = $('<div>').addClass(plugin.settings.namespace + '-gallery').appendTo($('body'));
-                plugin.container.css({
-                    'position': 'absolute',
-                    'top': '0',
-                    'left': '0',
-                    'width': $(document).width() + 'px',
-                    'height': $(document).height() + 'px',
-                    'background': 'rgba(0, 0, 0, 0.7)',
-                    'text-align': 'center',
-                });
-                plugin.container.click(function(e){
-                    plugin.close();
-                });
-                plugin.content = $('<div>').addClass(plugin.settings.namespace + '-content');
+                // setup gallery in the dom
 
+                plugin.container = $('<div>')
+                    .addClass(plugin.settings.namespace + '-gallery')
+                    .appendTo($('body'))
+                    .css({
+                        'position': 'absolute',
+                        'top': '0',
+                        'left': '0',
+                        'width': $(document).width() + 'px',
+                        'height': $(document).height() + 'px',
+                        'background': 'rgba(0, 0, 0, 0.7)',
+                        'text-align': 'center',
+                    })
+                    .bind('click', function(e){
+                        plugin.close();
+                    });
 
-                plugin.content.css({
-                    'visibility': 'invisible',
-                });
+                plugin.content = $('<div>')
+                    .addClass(plugin.settings.namespace + '-content')
+                    .css({
+                        'visibility': 'invisible',
+                    })
+                    .on('click', 'img', function(e) {
+                        e.stopPropagation();
+                        plugin.next_image();
+                    });
+
                 plugin.loaded = true;
             }
-            plugin.content.on('click', 'img', function(e) {
-                e.stopPropagation();
-                plugin.next_image();
-            });
-            plugin.show_image(i);
-        }
 
-        plugin.show_image = function(i) {
             if(plugin.settings.disable_url_hash !== true) {
                 window.location.hash = plugin.settings.namespace + '-gallery-' + i;
             }
@@ -102,6 +104,7 @@
             plugin.content.empty();
             var window_height = window.innerHeight ? window.innerHeight : $(window).height()
             var window_width = window.innerWidth ? window.innerWidth : $(window).width()
+
             plugin.image = $('<img>')
                 .css({
                     'max-height': ( window_height - (plugin.settings.padding*2) ) + 'px',
@@ -112,6 +115,7 @@
                 })
                 .attr('src', plugin.images[i].src)
                 .appendTo(plugin.content);
+
             plugin.show_image_when_available();
         }
 
