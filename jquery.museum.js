@@ -3,13 +3,12 @@
     $.museum = function(el, options) {
 
         var defaults = {
-            namespace: 'murat-',
+            namespace: 'msm',
+            padding: 25,
         }
 
         var plugin = this;
-
         plugin.settings = {}
-
         plugin.current_image = null;
 
         var init = function() {
@@ -31,65 +30,88 @@
                     }
                 }));
             });
+            $(document).keydown(function(e) {
+                if (e.keyCode == 27) {
+                    plugin.close();
+                }
+            });
+
+            var plugin_hash ='#' + plugin.settings.namespace+'-gallery';
+            if(window.location.hash.substring(0, plugin_hash.length) === plugin_hash) {
+                var image_id = window.location.hash.split('-')[2];
+                plugin.show_gallery(image_id);
+            }
+            plugin.prev_hash = window.location.hash;
         }
 
         plugin.show_gallery = function(i) {
-            plugin.container = $('<div>').addClass(plugin.settings.namespace + 'gallery').appendTo($('body'));
+            plugin.container = $('<div>').addClass(plugin.settings.namespace + '-gallery').appendTo($('body'));
             plugin.container.css({
                 'position': 'absolute',
-                'top': $(document).scrollTop() + 'px',
+                'top': '0',
                 'left': '0',
-                'min-width': '100%',
-                'min-height': '100%',
+                'width': $(document).width() + 'px',
+                'height': $(document).height() + 'px',
                 'background': 'rgba(0, 0, 0, 0.7)',
-                'display': 'table',
                 'text-align': 'center',
             });
             plugin.container.click(function(e){
                 plugin.close();
             });
-            plugin.content = $('<div>').addClass(plugin.settings.namespace + 'content');
+            plugin.content = $('<div>').addClass(plugin.settings.namespace + '-content');
+
+
             plugin.content.css({
                 'visibility': 'invisible',
-                'margin': '15px',
-                'vertical-align': 'middle',
-                'display': 'table-cell',
             });
-            plugin.show_loader();
             plugin.show_image(i);
         }
 
         plugin.show_image = function(i) {
+            window.location.hash = plugin.settings.namespace + '-gallery-' + i;
+
             plugin.current_image = i;
             plugin.content.empty();
-            plugin.image = $('<img>').attr('src', plugin.images[i].src).appendTo(plugin.content);
-            plugin.image.css({
-                'max-height': ( $(window).height() - 30 ) + 'px',
-                'max-width': ( $(window).width() - 30 ) + 'px',
-                'box-shadow': '0 0 15px 0 #000',
-                'cursor': 'pointer',
-                'background': 'rgba(0,0,0,0.6)',
-            });
-            plugin.image.click(function(e) {
-                e.stopPropagation();
-                plugin.next_image();
-            });
+            var window_height = window.innerHeight ? window.innerHeight : $(window).height()
+            var window_width = window.innerWidth ? window.innerWidth : $(window).width()
+            plugin.image = $('<img>')
+                .css({
+                    'max-height': ( window_height - (plugin.settings.padding*2) ) + 'px',
+                    'max-width': ( window_width - (plugin.settings.padding*2) ) + 'px',
+                    'box-shadow': '0 0 15px 0 #000',
+                    'cursor': 'pointer',
+                    'background': 'rgba(0,0,0,0.6)',
+                })
+                .attr('src', plugin.images[i].src)
+                .appendTo(plugin.content)
+                .click(function(e) {
+                    e.stopPropagation();
+                    plugin.next_image();
+                });
             plugin.show_image_when_available();
 
         }
 
         plugin.show_image_when_available = function() {
+            // we will know how wide/tall the image is once it starts downloading it
             if(plugin.image[0].height && plugin.image[0].width) {
                 plugin.content = plugin.content.appendTo(plugin.container);
+
+                var window_height = window.innerHeight ? window.innerHeight : $(window).height()
+                var window_width = window.innerWidth ? window.innerWidth : $(window).width()
+
+                var margin_top = ($(document).scrollTop() + ((window_height - plugin.image.height()) / 2));
+                var margin_left = ($(document).scrollLeft() + ((window_width - plugin.image.width()) / 2));
+
                 plugin.content.css({
-                    'margin': '15px auto',
+                    'margin-top': margin_top + 'px',
+                    'margin-left': margin_left + 'px',
                     'width': plugin.image.width(),
                     'height': plugin.image.height(),
                 });
                 plugin.content.css({
                     'visibility': 'visible',
                 });
-                plugin.hide_loader();
             } else {
                 setTimeout(plugin.show_image_when_available, 50);
             }
@@ -99,20 +121,12 @@
             plugin.show_image((plugin.current_image + 1) % plugin.images.length);
         }
 
-        plugin.show_loader = function() {
-            // no need
-        }
-
-        plugin.hide_loader = function() {
-            // no need
-        }
-
         plugin.close = function() {
+            window.location.hash = plugin.prev_hash;
             plugin.container.remove();
         }
 
         init();
-
     }
 
 })(jQuery);
