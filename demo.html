@@ -16,9 +16,15 @@ http://muratayfer.com
             });
         </script>
         <style type='text/css'>
-        body, html {margin: 0; padding: 0; font-family: Helvetica, Arial; background: #fff; }
+        body, html {margin: 0; padding: 0; font-family: Helvetica, Arial; background: #26537c; color: rgba(255,255,255,0.8); font-family: monospace; }
+        a { color: #fff; }
+        h1 { line-height: 40px; font-size: 30px; }
+        h2 { line-height: 30px; font-size: 20px; }
+        h1, h2 { color: #fff; border-bottom: 2px solid rgba(255,255,255,0.7); }
         #container { margin: 50px; }
-        #content img { height: 100px; margin: 30px; }
+        #content img { height: 80px; margin-right: 10px; margin-bottom: 10px; border: 2px solid #043a6b; padding: 2px; }
+        #content img:hover { border: 2px solid #fff; }
+        pre { background: rgba(255,255,255,0.6); padding: 10px; color: #012647; }
         </style>
         <title>jquery-museum</title>
     </head>
@@ -36,8 +42,37 @@ http://muratayfer.com
                 <img src='http://muratayfer.com/static/images/paintings/bubbles.jpg' />
                 <img src='http://muratayfer.com/static/images/paintings/evolution.jpg' />
             </div>
+            <div id='details'>
+                <p>A zero-clutter jQuery image gallery.</p>
+                <ul>
+                    <li>Single file.</li>
+                    <li>Works well on desktop &amp; mobile.</li>
+                    <li>Clicking the image (or hitting arrow keys) goes to the next one.</li>
+                    <li>Clicking outside the image (or hitting escape) closes the overlay.</li>
+                    <li>Images can be deep-linked (uses URL hash).</li>
+                    <li>The browser back button is respected.</li>
+                </ul>
+                <p>No other animations or styling.</p>
+            </div>
+            <div id='download'>
+                <h2>source</h2>
+                view on <a href='http://github.com/mayfer/jquery-museum'>github</a> or download: <a href='jquery.museum.js'>jquery.museum.js</a>
+            </div>
+            <div id='usage'>
+                <h2>usage</h2>
+                <pre>&lt;script&nbsp;src=&apos;http://code.jquery.com/jquery-1.10.2.min.js&apos;&gt;&lt;/script&gt;
+&lt;script&nbsp;src=&apos;jquery.museum.js&apos;&gt;&lt;/script&gt;
+&lt;script&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;$(document).ready(function()&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$.museum($(&apos;#content&nbsp;img&apos;));
+&nbsp;&nbsp;&nbsp;&nbsp;});
+&lt;/script&gt;</pre>
+            </div>
             <div>
-            by <a href='/'>murat</a>
+            <div id='credits'>
+                <h2>credits</h2>
+                by <a href='http://muratayfer.com'>murat</a>
+            </div>
            </div>
         </div>
        <script type="text/javascript">

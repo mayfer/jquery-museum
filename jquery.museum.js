@@ -151,6 +151,7 @@
 
         plugin.close = function() {
             plugin.loaded = false;
+            plugin.current_image = null;
             window.location.hash = '';
             plugin.container.remove();
         }
