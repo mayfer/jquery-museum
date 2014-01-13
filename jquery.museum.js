@@ -1,3 +1,10 @@
+/*
+
+by Murat Ayfer
+http://muratayfer.com
+http://github.com/mayfer/jquery-museum
+
+*/
 ;(function($) {
 
     $.museum = function(el, options) {
@@ -156,7 +163,9 @@
         plugin.close = function() {
             plugin.loaded = false;
             plugin.current_image = null;
-            window.location.hash = '';
+            if(plugin.settings.disable_url_hash !== true) {
+                window.location.hash = '';
+            }
             plugin.container.remove();
         }
 
