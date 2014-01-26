@@ -75,8 +75,6 @@ Git repo:     http://github.com/mayfer/jquery-museum
 
         plugin.show_image = function(i) {
             if(plugin.loaded === false) {
-                // setup gallery in the dom
-
                 plugin.container = $('<div>')
                     .addClass(plugin.settings.namespace + '-gallery')
                     .appendTo($('body'))
@@ -90,6 +88,7 @@ Git repo:     http://github.com/mayfer/jquery-museum
                         'text-align': 'center',
                     })
                     .bind('click', function(e){
+                        e.preventDefault();
                         plugin.close();
                     });
 
