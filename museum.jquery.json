@@ -1,0 +1,27 @@
+{
+    "name": "museum",
+    "title": "jQuery Museum",
+    "description": "A single-file, minimalist jQuery image gallery.",
+    "keywords": [
+        "museum",
+        "image",
+        "gallery",
+    ],
+    "version": "1",
+    "author": {
+        "name": "Murat Ayfer",
+        "url": "http://muratayfer.com"
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "http://choosealicense.com/licenses/mit/"
+        }
+    ],
+    "bugs": "https://github.com/mayfer/jquery-museum/issues",
+    "homepage": "http://muratayfer.com/jquery-museum/",
+    "download": "http://muratayfer.com/jquery-museum/jquery.museum.js",
+    "dependencies": {
+        "jquery": ">=1.8"
+    }
+}

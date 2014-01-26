@@ -1,8 +1,10 @@
 /*
 
+jquery-museum v1
 by Murat Ayfer
-http://muratayfer.com
-http://github.com/mayfer/jquery-museum
+
+Project page: http://muratayfer.com/jquery-museum
+Git repo:     http://github.com/mayfer/jquery-museum
 
 */
 ;(function($) {
@@ -41,12 +43,13 @@ http://github.com/mayfer/jquery-museum
             });
             $(document).keydown(function(e) {
                 if (e.keyCode == 27) {
+                    // escape key
                     plugin.close();
                 } else if(e.keyCode == 39) {
-                    // right
+                    // right key
                     plugin.next_image()
                 } else if(e.keyCode == 37) {
-                    // left
+                    // left key
                     plugin.prev_image()
                 }
             });
