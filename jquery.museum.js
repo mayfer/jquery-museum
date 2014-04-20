@@ -21,6 +21,7 @@ Git repo:     http://github.com/mayfer/jquery-museum
         plugin.settings = {}
         plugin.current_image = null;
         plugin.loaded = false;
+        plugin.original_url = document.URL;
 
         var init = function() {
             plugin.settings = $.extend({}, defaults, options);
@@ -166,7 +167,11 @@ Git repo:     http://github.com/mayfer/jquery-museum
             plugin.loaded = false;
             plugin.current_image = null;
             if(plugin.settings.disable_url_hash !== true) {
-                window.location.hash = '';
+                if (history && history.pushState) {
+                    history.pushState({}, document.title, plugin.original_url);
+                } else {
+                    window.location.hash = '';
+                }
             }
             plugin.container.remove();
         }

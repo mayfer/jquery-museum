@@ -60,7 +60,7 @@ http://muratayfer.com
                 view on <a href='http://github.com/mayfer/jquery-museum'>github</a> or download: <a href='jquery.museum.js'>jquery.museum.js</a>
             </div>
             <div id='usage'>
-                <h2>usage</h2>
+                <h2>basic usage</h2>
                 <pre>&lt;script&nbsp;src=&apos;http://code.jquery.com/jquery-1.10.2.min.js&apos;&gt;&lt;/script&gt;
 &lt;script&nbsp;src=&apos;jquery.museum.js&apos;&gt;&lt;/script&gt;
 &lt;script&gt;
@@ -68,6 +68,15 @@ http://muratayfer.com
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$.museum($(&apos;#content&nbsp;img&apos;));
 &nbsp;&nbsp;&nbsp;&nbsp;});
 &lt;/script&gt;</pre>
+            </div>
+            <div id='options'>
+                <h2>options</h2>
+                <pre>var options = {
+    namespace: "msm",       // for custom CSS class namespacing
+    padding: 25,            // in case you would like a specific amount of padding on the lightbox
+    disable_url_hash: true, // disable using hashes in case your website already uses URL hashes for states
+};
+$.museum($(&apos;#content&nbsp;img&apos;), options);</pre>
             </div>
             <div>
             <div id='credits'>
