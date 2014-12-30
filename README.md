@@ -16,3 +16,6 @@ No other animations or styling.
 
 Just add `<script src='jquery.museum.js'></script>` to your head and initialize it with `$.museum($('#relevant-context img'));`. Make sure the selected elements are `<img>` tags.
 
+You may also add a fullsize data tag to the img element to load a larger image in the gallery:
+
+`<img src="thumb.jpg" data-fullsize="large.jpg" />`
