@@ -30,10 +30,19 @@ Git repo:     http://github.com/mayfer/jquery-museum
             plugin.el.each(function(i, e) {
                 var src = $(e).attr('src');
                 var title = $(e).attr('title');
+                var fullsize = $(e).data('fullsize');
+                if(!fullsize) {
+                    fullsize = src;
+                } else {
+                    // preload fullsize image
+                    $('<img/>')[0].src = this;
+                }
+
                 plugin.images[i] = {
                     src: src,
                     title: title,
                     elem: e,
+                    fullsize: fullsize,
                 };
                 $(this).wrap($('<a>').attr('href', src).bind('click', function(ev){
                     if(!ev.metaKey) {
@@ -123,7 +132,7 @@ Git repo:     http://github.com/mayfer/jquery-museum
                     'cursor': 'pointer',
                     'background': 'rgba(0,0,0,0.6)',
                 })
-                .attr('src', plugin.images[i].src)
+                .attr('src', plugin.images[i].fullsize)
                 .appendTo(plugin.content);
 
             plugin.show_image_when_available();
