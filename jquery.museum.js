@@ -35,7 +35,7 @@ Git repo:     http://github.com/mayfer/jquery-museum
                     fullsize = src;
                 } else {
                     // preload fullsize image
-                    $('<img/>')[0].src = this;
+                    $('<img/>')[0].src = fullsize;
                 }
 
                 plugin.images[i] = {
